@@ -2,14 +2,18 @@
 imputation:
   method: "median"  # mean, median, knn
   knn_neighbors: 5
+  columns_to_impute: ["temperature", "humidity", "air_quality", "light_intensity", "soil_moisture", "soil_ph", "electrical_conductivity"]
 
 normalization:
   method: "standard"  # minmax, standard
+  features_to_scale: ["temperature", "humidity", "air_quality", "light_intensity", "soil_moisture", "soil_ph", "electrical_conductivity"]
 
 outliers:
   method: "zscore"
   threshold: 3.0
+  action: "clip"  # drop, clip, flag
 
 resampling:
   frequency: "1H"
   method: "mean"
+  time_column: "timestamp"

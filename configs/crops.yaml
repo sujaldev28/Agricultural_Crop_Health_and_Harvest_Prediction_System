@@ -5,8 +5,19 @@ crops:
     optimal_humidity: [60.0, 80.0]
     optimal_ph: [5.5, 6.8]
     optimal_ec: [1.5, 2.5]
+    base_temperature: 10.0
+    photoperiod_hours: 14.0
   lettuce:
     optimal_temp: [15.0, 20.0]
     optimal_humidity: [50.0, 70.0]
     optimal_ph: [6.0, 7.0]
     optimal_ec: [1.0, 1.8]
+    base_temperature: 4.0
+    photoperiod_hours: 16.0
+  strawberry:
+    optimal_temp: [18.0, 24.0]
+    optimal_humidity: [60.0, 75.0]
+    optimal_ph: [5.5, 6.5]
+    optimal_ec: [1.2, 2.0]
+    base_temperature: 7.0
+    photoperiod_hours: 12.0
