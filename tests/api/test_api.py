@@ -1,8 +1,13 @@
 """
-Tests for api module.
+Tests for FastAPI endpoints.
 """
 import pytest
+from fastapi.testclient import TestClient
+from src.api.main import app
 
-def test_placeholder() -> None:
-    """Placeholder test assertion."""
-    assert True
+client = TestClient(app)
+
+def test_health_endpoint() -> None:
+    response = client.get("/health")
+    assert response.status_code == 200
+    assert response.json()["status"] == "healthy"
