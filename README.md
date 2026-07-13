@@ -7,11 +7,14 @@ An AI and IoT-based smart agriculture system for crop health monitoring, disease
 ## 📋 Table of Contents
 - [Project Overview](#project-overview)
 - [Architecture & Flow](#architecture--flow)
-- [Directory Structure](#directory-structure)
-- [Sensor Data Specification](#sensor-data-specification)
-- [Installation & Setup](#installation--setup)
-- [Model Registry & Monitoring](#model-registry--monitoring)
-- [Testing](#testing)
+- [Folder Structure](#folder-structure)
+- [Tech Stack](#tech-stack)
+- [ML Pipeline](#ml-pipeline)
+- [Dataset Structure](#dataset-structure)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Team Responsibilities](#team-responsibilities)
+- [Contribution Guide](#contribution-guide)
 
 ---
 
@@ -26,6 +29,8 @@ Incoming real-time IoT streams from ESP32 edge units are synchronized via Fireba
 ---
 
 ## 🏗️ Architecture & Flow
+Detailed architectures are stored under `assets/architecture/`.
+
 ```mermaid
 graph TD
     ESP32[ESP32 Sensors] -->|Wi-Fi| Firestore[(Firebase Firestore)]
@@ -43,9 +48,8 @@ graph TD
 
 ---
 
-## 📁 Directory Structure
-Below is an overview of the modular packaging system designed for high scalability:
-
+## 📁 Folder Structure
+Please refer to [CONTRIBUTING.md](CONTRIBUTING.md) for the coding standards.
 - **`configs/`**: YAML templates for environment settings, crop rules, model hyperparameters, and telemetry validation.
 - **`data/`**: Data versioning pipeline steps (`raw`, `interim`, `processed`, `synthetic`, `metadata`).
 - **`datasets/`**: Crop agronomy profiles, public benchmarking, labels, and generated test sets.
@@ -55,56 +59,66 @@ Below is an overview of the modular packaging system designed for high scalabili
 - **`reports/`**: Automatically generated HTML/PDF evaluations, drift metrics, and figures.
 - **`scripts/`**: Orchestration entry points for batch training, serving exports, inference, and evaluation.
 - **`src/`**: Core application package logic.
-  - `common/`: Shared schemas, validators, exceptions, and global logger settings.
-  - `ingestion/`: Firestore stream subscription, custom parsers, and loaders.
-  - `preprocessing/`: Raw timeseries cleaning, imputation, and normalizing.
-  - `feature_engineering/`: Real-time agriculture indices (e.g. Vapor Pressure Deficit, Daily Light Integral, GDD).
-  - `feature_store/`: Multi-source data registry and feature builder.
-  - `models/`: Submodule stubs containing training and predictor class wrappers.
-  - `decision_engine/`: Agronomic rules, optimization setpoint calculations.
-  - `monitoring/`: Real-time data and concept drift alerts.
-  - `serving/`: Production-grade API inference handlers and post-processors.
-  - `api/`: FastAPI routes, middleware, and dependency definitions.
 - **`tests/`**: Integration and unit testing suite.
 
 ---
 
-## ⚡ Sensor Data Specification
-Each ingested record is typed and validated against the following schema:
-- **`temperature`**: Ambient temperature in °C.
-- **`humidity`**: Relative Humidity (RH %).
-- **`air_quality`**: Carbon Dioxide levels (CO₂ in ppm).
-- **`light_intensity`**: Light illuminance levels (Lux).
-- **`soil_moisture`**: Soil moisture percentage (VWC %).
-- **`soil_ph`**: Soil acidity/alkalinity scale.
-- **`electrical_conductivity`**: Soil EC level (dS/m).
-- **`timestamp`**: UTC Datetime.
-- **`sensor_id`** / **`device_id`** / **`zone_id`**: Device topology mapping.
-- **`crop_type`**: Targeted crop identifier (e.g., `tomato`, `lettuce`).
+## 🛠️ Tech Stack
+- **Core Framework**: Python 3.10, FastAPI, Uvicorn
+- **Data Engineering**: Pandas, NumPy, Firebase Admin SDK
+- **Machine Learning**: Scikit-Learn, XGBoost, SHAP
+- **Developer Tooling**: Ruff, Black, MyPy, pytest, pre-commit
 
 ---
 
-## 🚀 Installation & Setup
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/sujaldev28/Agricultural_Crop_Health_and_Harvest_Prediction_System.git
-   cd Agricultural_Crop_Health_and_Harvest_Prediction_System
-   ```
-2. Set up virtual environment & install requirements:
-   ```bash
-   python -m venv .venv
-   source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-   pip install -r requirements.txt
-   ```
-3. Copy environment configuration:
-   ```bash
-   cp .env.example .env
-   ```
+## 🧬 ML Pipeline
+1. **Ingestion**: Subscribes to Firestore database updates, parses schema packets, and synchronizes streams.
+2. **Preprocessing**: Normalizes values, imputes missing data, and clips/flags outlier values.
+3. **Feature Engineering**: Calculates biological indexes like VPD (Vapor Pressure Deficit), DLI (Daily Light Integral), and GDD (Growing Degree Days).
+4. **Predictive Scoring**: Compares sensor states against target baseline ranges to identify crop health and projected yield.
+5. **Explainability**: Applies SHAP to explain how environmental indicators influenced the outputs.
 
 ---
 
-## 🔬 Testing
-Run test discovery using pytest:
+## 📦 Dataset Structure
+Data assets are segregated into subfolders under `data/` and `datasets/`:
+- `data/raw/`: Original sensor data payload JSONs.
+- `data/processed/`: Scaled and aggregated hourly database matrices.
+- `datasets/crop_profiles/`: Growth conditions rules for target crops.
+
+---
+
+## 🚀 Installation
 ```bash
-pytest
+git clone https://github.com/sujaldev28/Agricultural_Crop_Health_and_Harvest_Prediction_System.git
+cd Agricultural_Crop_Health_and_Harvest_Prediction_System
+python -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+pre-commit install
 ```
+
+---
+
+## 💻 Usage
+- **Train Models**:
+  ```bash
+  python scripts/train.py --config configs/config.yaml
+  ```
+- **Run Serving API**:
+  ```bash
+  uvicorn src.api.main:app --host 0.0.0.0 --port 8000
+  ```
+
+---
+
+## 👥 Team Responsibilities
+- **IoT & Hardware Team**: Deploys ESP32 units, handles telemetry streaming, and MQTT configs.
+- **Backend & Cloud Team**: Manages Firebase Firestore instances, routes, and webhook servers.
+- **MLOps Team**: Designs training pipelines, handles version control, and oversees model deployment.
+- **Data Science Team**: Conducts feature analysis, engineers model stubs, and tunes predictor models.
+
+---
+
+## 🤝 Contribution Guide
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) and adhere to the guidelines. All contributions must run lint checks and write unit tests.
