@@ -1,0 +1,20 @@
+[project]
+name = "Agricultural_Crop_Health_and_Harvest_Prediction_System"
+version = "1.0.0"
+description = "AI/ML and IoT-based agricultural monitoring and predictive decision system."
+authors = [{ name = "Senior ML/MLOps Architect" }]
+dependencies = [
+    "fastapi>=0.100.0",
+    "uvicorn>=0.22.0"
+]
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q"
+testpaths = [
+    "tests",
+]
+
+[tool.ruff]
+line-length = 88
+select = ["E", "F", "W", "I"]

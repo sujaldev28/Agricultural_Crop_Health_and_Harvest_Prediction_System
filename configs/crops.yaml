@@ -1,0 +1,12 @@
+# Crop profiles and growth requirements
+crops:
+  tomato:
+    optimal_temp: [20.0, 25.0]
+    optimal_humidity: [60.0, 80.0]
+    optimal_ph: [5.5, 6.8]
+    optimal_ec: [1.5, 2.5]
+  lettuce:
+    optimal_temp: [15.0, 20.0]
+    optimal_humidity: [50.0, 70.0]
+    optimal_ph: [6.0, 7.0]
+    optimal_ec: [1.0, 1.8]

@@ -1,0 +1,15 @@
+# Data preprocessing configs
+imputation:
+  method: "median"  # mean, median, knn
+  knn_neighbors: 5
+
+normalization:
+  method: "standard"  # minmax, standard
+
+outliers:
+  method: "zscore"
+  threshold: 3.0
+
+resampling:
+  frequency: "1H"
+  method: "mean"

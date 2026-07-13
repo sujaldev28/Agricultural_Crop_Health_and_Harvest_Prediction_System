@@ -1,0 +1,30 @@
+# Sensor configurations and validation ranges
+sensors:
+  temperature:
+    unit: "Celsius"
+    min_value: -10.0
+    max_value: 60.0
+  humidity:
+    unit: "Percent"
+    min_value: 0.0
+    max_value: 100.0
+  air_quality:
+    unit: "ppm"
+    min_value: 300.0
+    max_value: 5000.0
+  light_intensity:
+    unit: "Lux"
+    min_value: 0.0
+    max_value: 100000.0
+  soil_moisture:
+    unit: "Percent"
+    min_value: 0.0
+    max_value: 100.0
+  soil_ph:
+    unit: "pH"
+    min_value: 3.0
+    max_value: 10.0
+  electrical_conductivity:
+    unit: "dS/m"
+    min_value: 0.0
+    max_value: 10.0
