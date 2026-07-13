@@ -1,0 +1,18 @@
+name: Documentation Check
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Validate Markdown Links
+      uses: GA-Gaurav/link-checker@v1
+      with:
+        files: "**/*.md"
