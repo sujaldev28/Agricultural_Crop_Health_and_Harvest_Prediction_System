@@ -1,0 +1,23 @@
+# General system settings
+project_name: "Agricultural Crop Health and Harvest Prediction System"
+version: "1.0.0"
+environment: "production"
+
+database:
+  provider: "firestore"
+  project_id: "agri-crop-prediction-system"
+  credentials_path: "configs/credentials.json"
+  timeout_seconds: 30
+  retry_attempts: 3
+
+storage:
+  local_data_dir: "data"
+  model_registry_dir: "models"
+  export_format: "onnx"
+
+apis:
+  fastapi:
+    host: "0.0.0.0"
+    port: 8000
+    workers: 4
+    reload: false

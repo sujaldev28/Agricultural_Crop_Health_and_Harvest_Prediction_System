@@ -1,0 +1,16 @@
+# Auto detect text files and perform LF normalization
+* text=auto eol=lf
+
+# Force python files to remain LF normalized
+*.py text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.toml text eol=lf
+*.md text eol=lf
+
+# Binary files
+*.png binary
+*.jpg binary
+*.webp binary
+*.pkl binary
+*.joblib binary

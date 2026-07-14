@@ -1,0 +1,29 @@
+# Model hyperparameter templates and registry settings
+anomaly_detection:
+  isolation_forest:
+    contamination: 0.01
+    n_estimators: 100
+    random_state: 42
+  lstm_autoencoder:
+    epochs: 50
+    batch_size: 32
+    learning_rate: 0.001
+    sequence_length: 24
+
+crop_health:
+  classifier:
+    type: "random_forest"
+    n_estimators: 200
+    max_depth: 10
+    min_samples_split: 5
+    random_state: 42
+
+yield_prediction:
+  regressor:
+    type: "xgboost"
+    n_estimators: 300
+    max_depth: 6
+    learning_rate: 0.05
+    subsample: 0.8
+    colsample_bytree: 0.8
+    random_state: 42
